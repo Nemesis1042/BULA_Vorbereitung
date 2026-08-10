@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Tagesplan Tag 8</title>
+<style>
+  @page { size: 297mm 420mm; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 297mm;
+    height: 420mm;
+    font-family: 'Segoe UI', 'Trebuchet MS', Verdana, Arial, sans-serif;
+    background: linear-gradient(180deg, #EAF4FB 0%, #F6F1E3 22%, #FBF8F0 60%, #F3EEE0 100%);
+    color: #1F3B4D;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ---- decorative meadow strip at very bottom ---- */
+  .meadow {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 26mm;
+    background: linear-gradient(180deg, #DCEFCB 0%, #BFE1A6 100%);
+    border-top: 2mm solid #1F3B4D;
+  }
+  .meadow::before, .meadow::after {
+    content: "";
+    position: absolute;
+    top: -3mm;
+    width: 6mm; height: 6mm;
+    background: #BFE1A6;
+    border-radius: 50%;
+  }
+
+  .sheet {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 12mm 14mm 8mm 14mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---- header ---- */
+  .speech {
+    align-self: center;
+    background: #FFFFFF;
+    border: 1mm solid #1F3B4D;
+    border-radius: 8mm;
+    padding: 3mm 10mm;
+    font-size: 15pt;
+    font-weight: 800;
+    color: #1F3B4D;
+    position: relative;
+    margin-bottom: 2mm;
+    box-shadow: 0 2mm 0 rgba(31,59,77,0.08);
+  }
+  .speech::after {
+    content: "";
+    position: absolute;
+    bottom: -5mm;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 4mm solid transparent;
+    border-right: 4mm solid transparent;
+    border-top: 5mm solid #1F3B4D;
+  }
+  .speech::before {
+    content: "";
+    position: absolute;
+    bottom: -3.6mm;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 3mm solid transparent;
+    border-right: 3mm solid transparent;
+    border-top: 3.6mm solid #FFFFFF;
+    z-index: 1;
+  }
+
+  .mascot-top {
+    align-self: center;
+    width: 26mm;
+    margin: 3mm 0 4mm 0;
+  }
+
+  .headline {
+    text-align: center;
+    font-size: 30pt;
+    font-weight: 900;
+    letter-spacing: 0.5mm;
+    color: #1F3B4D;
+  }
+  .headline .gold { color: #C98B2B; }
+
+  .datebar {
+    align-self: center;
+    margin-top: 2mm;
+    background: #1F3B4D;
+    color: #FBF8F0;
+    font-weight: 800;
+    font-size: 13pt;
+    letter-spacing: 1.2mm;
+    padding: 2.4mm 10mm;
+    border-radius: 999px;
+  }
+
+  .theme-banner {
+    margin: 5mm 0 6mm 0;
+    background: linear-gradient(90deg, #C98B2B, #E3AE55);
+    border-radius: 6mm;
+    padding: 4mm 8mm;
+    text-align: center;
+    color: #1F3B4D;
+    box-shadow: 0 2mm 4mm rgba(201,139,43,0.25);
+  }
+  .theme-banner .t1 {
+    font-size: 12pt;
+    font-weight: 700;
+    letter-spacing: 0.6mm;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .theme-banner .t2 {
+    font-size: 19pt;
+    font-weight: 900;
+    margin-top: 1mm;
+  }
+  .theme-banner .t3 {
+    font-size: 12.5pt;
+    font-weight: 700;
+    margin-top: 1mm;
+    color: #FBF8F0;
+  }
+  .theme-banner .t4 {
+    font-size: 10.5pt;
+    font-style: italic;
+    margin-top: 1mm;
+    color: #1F3B4D;
+    opacity: 0.85;
+  }
+
+  /* ---- timeline ---- */
+  .timeline {
+    flex: 1;
+    position: relative;
+    padding-left: 15mm;
+    margin-bottom: 30mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .track {
+    position: absolute;
+    left: 9.5mm;
+    top: 6mm;
+    bottom: 6mm;
+    width: 2.6mm;
+    background-image: radial-gradient(circle, #C98B2B 1.3mm, transparent 1.4mm);
+    background-size: 2.6mm 7mm;
+    background-repeat: repeat-y;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 6mm;
+  }
+  .icon-circle {
+    flex: 0 0 auto;
+    width: 15mm;
+    height: 15mm;
+    border-radius: 50%;
+    background: #1F3B4D;
+    border: 1mm solid #FBF8F0;
+    box-shadow: 0 0 0 1mm #1F3B4D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8.5mm;
+    position: relative;
+    z-index: 2;
+  }
+  .step.alt .icon-circle { background: #3E7C59; }
+  .step.blue .icon-circle { background: #2E6FA3; }
+
+  .card {
+    flex: 1;
+    background: #FFFFFF;
+    border-radius: 4mm;
+    padding: 2.6mm 6mm;
+    box-shadow: 0 1mm 2.5mm rgba(31,59,77,0.12);
+    border-left: 1.6mm solid #C98B2B;
+  }
+  .step.alt .card { border-left-color: #3E7C59; }
+  .step.blue .card { border-left-color: #2E6FA3; }
+
+  .card .label {
+    font-size: 8pt;
+    font-weight: 800;
+    letter-spacing: 0.5mm;
+    text-transform: uppercase;
+    color: #C98B2B;
+  }
+  .step.alt .card .label { color: #3E7C59; }
+  .step.blue .card .label { color: #2E6FA3; }
+
+  .card .title {
+    font-size: 13.5pt;
+    font-weight: 800;
+    color: #1F3B4D;
+    line-height: 1.15;
+  }
+  .card .sub {
+    font-size: 9.5pt;
+    color: #4B5D6B;
+    margin-top: 0.5mm;
+  }
+
+  .sheep-end {
+    position: absolute;
+    right: 8mm;
+    bottom: 2mm;
+    width: 34mm;
+    z-index: 3;
+  }
+
+  .footer {
+    position: absolute;
+    left: 14mm;
+    right: 50mm;
+    bottom: 9mm;
+    z-index: 4;
+    text-align: left;
+    font-size: 11pt;
+    font-weight: 700;
+    color: #1F3B4D;
+    font-style: italic;
+    line-height: 1.3;
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="speech">Heute wird's wollig! 🐑</div>
+
+  <svg class="mascot-top" viewBox="0 0 130 110" xmlns="http://www.w3.org/2000/svg">
+    <!-- legs -->
+    <g stroke="#1F3B4D" stroke-width="5" stroke-linecap="round">
+      <line x1="38" y1="88" x2="36" y2="104"/>
+      <line x1="54" y1="92" x2="53" y2="106"/>
+      <line x1="74" y1="92" x2="75" y2="106"/>
+      <line x1="90" y1="88" x2="92" y2="104"/>
+    </g>
+    <!-- fluffy wool body: cluster of circles -->
+    <g fill="#FBF8F0" stroke="#1F3B4D" stroke-width="3.2">
+      <circle cx="40" cy="55" r="18"/>
+      <circle cx="60" cy="45" r="21"/>
+      <circle cx="82" cy="48" r="20"/>
+      <circle cx="98" cy="62" r="16"/>
+      <circle cx="62" cy="68" r="19"/>
+      <circle cx="82" cy="70" r="17"/>
+    </g>
+    <!-- head -->
+    <ellipse cx="108" cy="48" rx="15" ry="13" fill="#1F3B4D"/>
+    <ellipse cx="118" cy="36" rx="7" ry="9" fill="#1F3B4D" transform="rotate(-20 118 36)"/>
+    <circle cx="112" cy="45" r="2.4" fill="#FBF8F0"/>
+    <path d="M104 53 q4 3 8 0" stroke="#FBF8F0" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  </svg>
+
+  <div class="headline">TAG 8 <span class="gold">·</span> MONTAG</div>
+  <div class="datebar">17.08.2026</div>
+
+  <div class="theme-banner">
+    <div class="t1">Tagesthema</div>
+    <div class="t2">Die Auferstehung und das Leben</div>
+    <div class="t3">„Jesus gibt mir ewiges Leben“</div>
+    <div class="t4">Johannes 11,1–44</div>
+  </div>
+
+  <div class="timeline">
+    <div class="track"></div>
+
+    <div class="step">
+      <div class="icon-circle">🌅</div>
+      <div class="card">
+        <div class="label">Bevor's losgeht</div>
+        <div class="title">Andacht am Kreuz</div>
+      </div>
+    </div>
+
+    <div class="step alt">
+      <div class="icon-circle">🍳</div>
+      <div class="card"><div class="title">Frühstück</div></div>
+    </div>
+
+    <div class="step blue">
+      <div class="icon-circle">📖</div>
+      <div class="card">
+        <div class="title">Szene &amp; Bibelarbeit</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="icon-circle">🔨</div>
+      <div class="card">
+        <div class="title">Lagerplatzgestaltung &amp; Hobbygruppen</div>
+      </div>
+    </div>
+
+    <div class="step alt">
+      <div class="icon-circle">🍽️</div>
+      <div class="card"><div class="title">Mittagessen</div></div>
+    </div>
+
+    <div class="step blue">
+      <div class="icon-circle">🐑</div>
+      <div class="card">
+        <div class="label">Geländespiel · Wald</div>
+        <div class="title">Capture the Sheep</div>
+        <div class="sub">Erobert die Schafe der Gegner-Teams!</div>
+      </div>
+    </div>
+
+    <div class="step alt">
+      <div class="icon-circle">🍝</div>
+      <div class="card"><div class="title">Abendessen</div></div>
+    </div>
+
+    <div class="step">
+      <div class="icon-circle">🎬</div>
+      <div class="card">
+        <div class="label">Show</div>
+        <div class="title">„1, 2 oder 3“</div>
+        <div class="sub">Das große Zeltgruppen-Quiz!</div>
+      </div>
+    </div>
+
+    <div class="step blue">
+      <div class="icon-circle">🙏</div>
+      <div class="card"><div class="title">Abendliturgie</div></div>
+    </div>
+
+    <div class="step alt">
+      <div class="icon-circle">😴</div>
+      <div class="card"><div class="title">MHD</div><div class="sub">Matratzenhorchdienst</div></div>
+    </div>
+
+  </div>
+
+  <div class="footer">Bis heute Abend – und keine Sorge, schwarze Schafe sind auch willkommen 😉</div>
+
+  <svg class="sheep-end" viewBox="0 0 150 100" xmlns="http://www.w3.org/2000/svg">
+    <text x="6" y="18" font-size="16" fill="#1F3B4D" font-family="Segoe UI, sans-serif" font-weight="800">Zzz…</text>
+    <!-- curled fluffy body -->
+    <g fill="#FBF8F0" stroke="#1F3B4D" stroke-width="3.2">
+      <circle cx="55" cy="66" r="17"/>
+      <circle cx="75" cy="58" r="19"/>
+      <circle cx="96" cy="62" r="17"/>
+      <circle cx="72" cy="78" r="18"/>
+      <circle cx="92" cy="80" r="15"/>
+    </g>
+    <!-- tucked head resting on body -->
+    <ellipse cx="40" cy="80" rx="14" ry="12" fill="#1F3B4D"/>
+    <ellipse cx="30" cy="72" rx="6" ry="8" fill="#1F3B4D" transform="rotate(-25 30 72)"/>
+    <path d="M33 82 q4 2.5 8 0" stroke="#FBF8F0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <!-- little feet peeking out -->
+    <g stroke="#1F3B4D" stroke-width="4.5" stroke-linecap="round">
+      <line x1="66" y1="95" x2="65" y2="99"/>
+      <line x1="80" y1="96" x2="81" y2="99"/>
+    </g>
+  </svg>
+
+  <div class="meadow"></div>
+</div>
+</body>
+</html>
